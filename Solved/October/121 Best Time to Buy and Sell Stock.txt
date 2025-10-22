@@ -1,0 +1,45 @@
+Oct 21 2025
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        MaxProfit = 0
+
+        if len(prices) < 2:
+            return 0
+        
+        buyIndex = 0
+
+        for i in range(len(prices)):
+            if prices[buyIndex] > prices[i]:
+                buyIndex = i
+            if prices[i] - prices[buyIndex] > MaxProfit:
+                MaxProfit = prices[i] - prices[buyIndex]
+
+        return MaxProfit
+
+I used a hint that said that I really only need to focus on when to buy and iterate through the array for the selling points
+At first I had a hard time figuring out how to keep track of MaxProfits and how to make sure I'm adhering to buy first and sell after
+
+What I need to remember is that the selling point is looped iteratively with no stops and buying at a lower price
+is what increases the profit. And you can decide whether to set a new buying point at the i index of your current
+iteration because at that point the maxProfit has been calculated for that whole range. 
+
+        
+Aug 6 2025
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        profit = 0
+        low = prices[0]
+        high = 0
+        for i in range(len(prices)):
+            if prices[i] < low:
+                low = prices[i]
+                high = 0
+            elif prices[i] > high:
+                if prices[i] - low > profit:
+                    profit = prices[i] - low
+            
+
+        return profit
+        

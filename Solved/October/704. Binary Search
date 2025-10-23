@@ -1,0 +1,49 @@
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        l = 0
+        h = len(nums) - 1
+        mid = (h + l) // 2  
+        
+        while l <= h:
+            if nums[mid] == target:
+                return mid
+
+            mid = (h + l) // 2
+
+            if nums[mid] > target:
+                h = mid - 1
+            elif nums[mid] < target:
+                l = mid + 1
+
+        return -1
+
+Brushed up on this needed to realize that you needed to add the indexes and that you need to do l/h = mid + 1 / -1 or
+else you will be put into an infinite loop. You also dont need to include it because it has already been checked
+
+example
+Iteration 1
+
+l = 0, h = 4
+
+mid = (0 + 4) // 2 = 2 → nums[mid] = 3
+
+3 < 5 → l = mid = 2
+
+Iteration 2
+
+l = 2, h = 4
+
+mid = (2 + 4) // 2 = 3 → nums[mid] = 4
+
+4 < 5 → l = mid = 3
+
+Iteration 3
+
+l = 3, h = 4
+
+mid = (3 + 4) // 2 = 3 (still 3 again!)
+mid didn’t change
+
+So l = mid = 3 again → stuck forever
+
+→ infinite loop

@@ -1,0 +1,52 @@
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        low = 0
+        high = len(nums) - 1
+
+        while low <= high:
+            mid = (high + low) // 2
+
+            if nums[mid] == target:
+                return mid
+         
+            # Short-circuit when only one or two elements are left
+            if high - low <= 1:
+                # If target smaller than nums[low], insert at low
+                if target < nums[low]:
+                    return low
+                # If target greater than nums[high], insert after high
+                elif target > nums[high]:
+                    return high + 1
+                # Otherwise, insert between them
+                else:
+                    return high
+
+            if nums[mid] > target:
+                high = mid - 1
+            else:
+                low = mid + 1
+                
+        return 0
+
+
+Having the short circuiting logic is redundant and not needed because it should be covered by just checking mid.
+Since      while low <= high: ,  it covers =, when high = low you know all cases are covered. 
+For this new iteration of search insert position you can just return low if the while loop finishes because thats where the inserted position would always be.
+
+
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        low = 0
+        high = len(nums) - 1
+
+        while low <= high:
+            mid = (low + high) // 2
+
+            if nums[mid] == target:
+                return mid
+            elif nums[mid] < target:
+                low = mid + 1
+            else:
+                high = mid - 1
+
+        return low  # insert position

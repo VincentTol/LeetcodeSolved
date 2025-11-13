@@ -1,0 +1,67 @@
+First attempt
+class Solution:
+    def isValid(self, s: str) -> bool:
+        # This is a stack problem because parantheses are structured with an opening and closing
+        # bracket which are reflected across a middle point
+        # After adding each opening part to the top of the stack,
+        # Once you reach a closing part, it must correspond to the top of the stack, then you get rid of 
+        # the element at the top of the stack 
+        # If the stack still has elements in it, or it doesn't match on a certain spot, it is not valid
+
+        stack = []
+
+        mapping = {
+            ")" : "(",
+            "]" : "[",
+            "}" : "{"
+        }
+
+        i = 0
+        while s[i] != "]" and s[i] != "}" and s[i] != ")" and i < len(s):
+            stack.insert(0, s[i])
+            i += 1
+
+        if i + 1 != len(s) / 2:
+            return False
+        
+        for x in range(i, len(s)):
+            if stack[0] == mapping[s[x]]:
+                stack.pop(0)
+            else:
+                return False
+
+        return True
+
+Wrong because assumes that parantheses are always nested in others, and that it is a perfect reflection
+but you can have pattern []{}()
+
+
+Correct approach checks for closing brackets iteratively and does not split it into two loops
+
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+
+        mapping = {
+            ")" : "(",
+            "]" : "[",
+            "}" : "{"
+        }
+
+        for char in s:
+            if char in mapping.values():  # opening bracket
+                stack.insert(0, char)
+            elif char in mapping:  # closing bracket
+                if not stack or stack[0] != mapping[char]:
+                    return False
+                stack.pop(0)
+            else:
+                # invalid character
+                return False
+
+        return len(stack) == 0
+            
+            
+
+
+        

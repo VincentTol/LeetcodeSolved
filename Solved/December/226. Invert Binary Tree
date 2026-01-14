@@ -1,0 +1,25 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+# Use Recursion. Keeps winding down until hits node is none and then works itself up to root node
+# Need to store the node.left and node.right in temp variables to not overwrite
+
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        def recurse(node):
+            if not node:
+                return None
+            left = node.left
+            right = node.right
+
+            node.left = recurse(right)
+            node.right = recurse(left)
+
+            return node
+
+        return recurse(root)
+

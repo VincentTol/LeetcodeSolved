@@ -1,0 +1,10 @@
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        complimentSet = {}
+        for i in range(len(nums)):
+            compliment = target - nums[i]
+            if compliment not in complimentSet:
+                complimentSet[nums[i]] = i
+            else:
+                return [complimentSet[compliment], i]
+            

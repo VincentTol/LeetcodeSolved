@@ -1,0 +1,66 @@
+First solution incorrect
+Thought shifting stones to the right was optimal but wasnt need to go right to left
+
+
+class Solution(object):
+    def rotateTheBox(self, boxGrid):
+        rowCount = len(boxGrid)
+        colCount = len(boxGrid[0])
+
+        grid = [["."] * colCount for _ in range(rowCount)]
+
+        for i in range(rowCount):
+            stones = 0
+            for j in range(colCount):
+                if boxGrid[i][j] == "#":
+                    stones += 1
+                elif boxGrid[i][j] == "*":
+                    # Place stones to the left of obstacle
+                    if stones > 0:
+                        grid[i][j - stones : j] = ["#"] * stones
+                        stones = 0]]
+                    grid[i][j] = "*"
+                elif j == colCount - 1:
+                    # Place remaining stones at the end
+                    if stones > 0:
+                        grid[i][j - stones + 1 : j + 1] = ["#"] * stones
+                        stones = 0
+
+        # Rotate 90 degrees clockwise
+        rotated = [[0] * rowCount for _ in range(colCount)]
+        for i in range(rowCount):
+            for j in range(colCount):
+                rotated[j][rowCount - i - 1] = grid[i][j]
+
+        return rotated
+
+Second correct solution
+
+class Solution(object):
+    def rotateTheBox(self, boxGrid):
+        rowCount = len(boxGrid)
+        colCount = len(boxGrid[0])
+
+        # Step 1: Shift rocks to the right
+        newGrid = [["."] * colCount for _ in range(rowCount)]
+
+        for i in range(rowCount):
+            writePos = colCount - 1  # Start writing rocks from the right
+            for j in range(colCount - 1, -1, -1):  # Iterate from right to left
+                if boxGrid[i][j] == "#":
+                    newGrid[i][writePos] = "#"
+                    writePos -= 1
+                elif boxGrid[i][j] == "*":
+                    newGrid[i][j] = "*"
+                    writePos = j - 1  # Rocks can't go past obstacle
+
+        # Step 2: Rotate the box 90 degrees clockwise
+        rotated = [[0] * rowCount for _ in range(colCount)]
+        for i in range(rowCount):
+            for j in range(colCount):
+                rotated[j][rowCount - i - 1] = newGrid[i][j]
+
+        return rotated
+
+
+

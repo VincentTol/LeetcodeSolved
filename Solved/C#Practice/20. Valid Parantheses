@@ -1,0 +1,34 @@
+public class Solution {
+    public bool IsValid(string s) {
+        Dictionary<char, char> dict  = new Dictionary<char, char>{
+            {')', '('},
+            {'}', '{'},
+            {']', '['},
+        };
+
+        // Use stack to store all opening brackets
+        // Then to be valid there must be the matching bracket when encounter a closing 
+        // Remove from top stack if valid, if not is false
+        List<char> chars = new List<char>();
+        
+        for(int i = 0; i < s.Length; i++){
+            // Opening bracket
+            if(dict.ContainsValue(s[i])){
+                chars.Add(s[i]);
+            }
+            else{
+                // else need to pop off stack
+                if(chars.Count == 0){
+                    return false;
+                }
+                else if(dict[s[i]] == chars[chars.Count - 1]){
+                    chars.RemoveAt(chars.Count - 1);
+                } else{
+                    return false;
+                }
+            }
+        }
+        return chars.Count == 0;
+
+    }
+}

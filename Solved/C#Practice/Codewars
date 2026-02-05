@@ -1,0 +1,54 @@
+// Codewars problems
+// Online C# Editor for free
+// Write, Edit and Run your C# code using C# Online Compiler Programiz
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class HelloWorld
+{
+    public static List<int> RemoveDupes(int[] numbers){ 
+        HashSet<int> set = new HashSet<int>(); 
+        foreach (int num in numbers){ 
+            set.Add(num); 
+        } 
+        return set.ToList(); 
+    }
+    
+    public static int summation(int num)
+    {
+      int sum = 0;
+      for(int i = 0; i <= num; i++) {
+        sum += i;
+      }
+      return sum;
+    }
+    
+    public static string GetMiddle(string s)
+    {
+        int len = s.Length;
+        
+        if(len == 1)
+        {
+            return s;
+        }
+        else if(len % 2 == 1) // odd length
+        {
+            int mid = len / 2;
+            return s[mid].ToString(); // convert char to string
+        }
+        else // even length
+        {
+            int mid = len / 2;
+            return s[mid - 1].ToString() + s[mid].ToString(); // concatenate as string
+        }
+    }
+    
+    public static void Main(string[] args)
+    {
+        int[] numbers = new int[]{1, 1, 1, 2, 3};
+        List<int> result = RemoveDupes(numbers);
+        Console.WriteLine(string.Join(", ", result));
+    }
+}

@@ -1,0 +1,27 @@
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        # Trick here is to sort all the strs elements alphabetically so that 
+        # you can then compare it to a set
+        # Here use a dictionary key as sorted string and then the value as the word
+        # That is an anagram of the key
+
+        dict = {}
+        output = []
+
+        for i in range(len(strs)):
+            # sorted returns a list of sorted characters
+            wordSorted = "".join(sorted(strs[i]))
+
+            if wordSorted not in dict:
+                # key is sorted string and value is word here in a list
+                dict[wordSorted] = [strs[i]]
+            else:
+                # word is in the dictionary, add it to the value list
+                dict[wordSorted].append(strs[i])
+        
+        # Output the array
+        for value in dict.values():
+            output.append(value)
+
+        return output
+            

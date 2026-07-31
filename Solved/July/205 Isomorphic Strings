@@ -1,0 +1,52 @@
+class Solution(object):
+    def isIsomorphic(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        # Iterate through the string assigning new letter to a increasing number
+        # ex egg => 122 or abbcad => 122314 
+        # This translation to numbers should match the other string because
+        # we are just wanting to see if the unique letters can be changed given position stays the same
+        # Problem is translating to a number it does not cover case where there is consecutively more
+        # than 10 letters because only using 0-9, there could be weird isntances where it matches
+        
+
+        s_dict = {}
+        t_dict = {}
+
+        sMap = ""
+        sCounter = 0
+
+        for i in range(len(s)):
+            if s[i] not in s_dict:
+                s_dict[s[i]] = sCounter
+                sMap += str(s_dict[s[i]]) + " "
+                sCounter += 1
+            else:
+                sMap += str(s_dict[s[i]]) + " "
+
+        tMap = ""
+        tCounter = 0
+
+        for i in range(len(t)):
+            if t[i] not in t_dict:
+                t_dict[t[i]] = tCounter
+                tMap += str(t_dict[t[i]]) + " "
+                tCounter += 1
+            else:
+                tMap += str(t_dict[t[i]]) + " "
+
+        print("sMap " + sMap)
+        print("tMap " + tMap)
+
+        
+
+        if tMap == sMap:
+            return True
+        else:
+            return False
+                
+
+        

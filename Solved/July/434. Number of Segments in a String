@@ -1,0 +1,21 @@
+class Solution(object):
+    def countSegments(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        segmentCount = 0
+
+        if len(s) == 0:
+            return segmentCount
+
+        if s[0] != " ":
+            segmentCount += 1
+
+        for i in range(len(s) - 1):
+            if s[i] == " " and s[i + 1] != " ":
+                segmentCount += 1
+         
+        return segmentCount
+
+        

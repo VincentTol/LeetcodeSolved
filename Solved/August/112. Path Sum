@@ -1,0 +1,40 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+
+# Things have to consider
+# root to leaf means have to go all the way from root to the last leaf cant stop midway
+# binary tree just means at most two nodes from a parent node, not that it is sorted, complete, or balanced
+#
+class Solution(object):
+
+    def recurse(self, node, val, target):
+        if node == None:
+            return False
+
+        val += node.val
+
+        if node.right == None and node.left == None:
+            if val == target:
+                return True
+            else:
+                return False
+
+        # Return True if either subtree has a valid path
+        return (self.recurse(node.left, val, target) or
+                self.recurse(node.right, val, target))
+    
+
+    def hasPathSum(self, root, targetSum):
+        """
+        :type root: Optional[TreeNode]
+        :type targetSum: int
+        :rtype: bool
+        """
+        return self.recurse(root, 0, targetSum)
+
+        
